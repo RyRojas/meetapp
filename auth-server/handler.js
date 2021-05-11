@@ -18,13 +18,13 @@ const credentials = {
 
 const { client_secret, client_id, redirect_uris, calendar_id } = credentials;
 
-const oAuth2Client = new google.auth.OAuth2(
-  client_id,
-  client_secret,
-  redirect_uris[0]
-);
-
 module.exports.getAuthURL = async () => {
+  const oAuth2Client = new OAuth2(
+    client_id,
+    client_secret,
+    redirect_uris[0]
+  );
+
   const authUrl = oAuth2Client.generateAuthUrl({
     access_type: 'offline',
     scope: SCOPES
@@ -42,7 +42,7 @@ module.exports.getAuthURL = async () => {
 };
 
 module.exports.getAccessToken = async (event) => {
-  const oAuth2Client = new google.auth.OAuth2(
+  const oAuth2Client = new OAuth2(
     client_id,
     client_secret,
     redirect_uris[0]
@@ -51,13 +51,7 @@ module.exports.getAccessToken = async (event) => {
   const code = decodeURIComponent(`${ event.pathParameters.code }`);
 
   return new Promise((resolve, reject) => {
-    oAuth2Client.getToken(code, (err, token) => {
-      if (err) {
-        return reject(err);
-      }
-
-      return resolve(token);
-    });
+    oAuth2Client.getToken(code, (err, token) => (err) ? reject(err) : resolve(token));
     })
     .then((token) => {
       //Respond with OAuth token
@@ -82,16 +76,16 @@ module.exports.getAccessToken = async (event) => {
 };
 
 module.exports.getCalendarEvents = async (event) => {
-  const oAuth2Client = new google.auth.OAuth2(
+  const oAuth2Client = new OAuth2(
     client_id,
     client_secret,
     redirect_uris[0]
   );
   //Decode access token from URL
-  const accessToken = decodeURIComponent(`${ event.pathParameters.access_token }`);
+  const access_token = decodeURIComponent(`${ event.pathParameters.access_token }`);
 
   return new Promise((resolve, reject) => {
-    oAuth2Client.setCredentials({ accessToken });
+    oAuth2Client.setCredentials({ access_token });
 
     calendar.events.list(
       {
@@ -101,13 +95,7 @@ module.exports.getCalendarEvents = async (event) => {
         singleEvents: true,
         orderBy: 'startTime'
       },
-      (error, response) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(response);
-        }
-      });
+      (err, res) => (err) ? reject(err) : resolve(res));
   })
   .then((results) => {
     return {
