@@ -25,19 +25,19 @@ describe('<Event /> Component', () => {
   });
 
   test('All information renders correctly', () => {
-    const expectedChildren = [
+    const expectedChildText = [
       event.summary,
       event.start.dateTime,
       event.location,
       event.description,
       'See Event in Calendar',
-      'Show Details',
+      'Hide Details',
     ];
     expect(
       EventWrapper.find('.event-card')
         .children()
         .map((child) => child.text())
-    ).toEqual(expectedChildren);
+    ).toEqual(expectedChildText);
   });
 
   test('Event collapses when button clicked again', () => {

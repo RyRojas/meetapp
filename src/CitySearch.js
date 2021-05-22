@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
 
-export function CitySearch({ locations }) {
-  let [query, setQuery] = useState('');
+export function CitySearch({ locations, setSelectedLocation }) {
+  let [query, setQuery] = useState(''),
+    [isVisible, setIsVisible] = useState(false);
 
-  let suggestions = locations;
+  const filterSuggestions = (suggestions) => {
+    return query
+      ? suggestions.filter((location) =>
+          location.toUpperCase().includes(query.toUpperCase())
+        )
+      : suggestions;
+  };
 
-  if (query) {
-    suggestions = locations.filter((location) =>
-      location.toUpperCase().includes(query.toUpperCase())
-    );
-  }
+  const handleItemClick = (suggestion) => {
+    setQuery(suggestion);
+    setIsVisible(false);
+    setSelectedLocation(suggestion);
+  };
 
   return (
     <div className="city-search">
@@ -18,14 +25,15 @@ export function CitySearch({ locations }) {
         className="search-bar"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        onFocus={() => setIsVisible(true)}
       />
-      <ul className="suggestions">
-        {suggestions.map((suggestion) => (
-          <li key={suggestion} onClick={() => setQuery(suggestion)}>
+      <ul className="suggestions" style={isVisible ? {} : { display: 'none' }}>
+        {filterSuggestions(locations).map((suggestion) => (
+          <li key={suggestion} onClick={() => handleItemClick(suggestion)}>
             {suggestion}
           </li>
         ))}
-        <li key="all">
+        <li key="all" onClick={() => handleItemClick('')}>
           <b>See all cities</b>
         </li>
       </ul>

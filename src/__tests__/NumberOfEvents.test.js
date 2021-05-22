@@ -6,7 +6,9 @@ describe('<NumberOfEvents /> Component', () => {
   let NumberOfEventsWrapper;
 
   beforeAll(() => {
-    NumberOfEventsWrapper = shallow(<NumberOfEvents />);
+    NumberOfEventsWrapper = shallow(
+      <NumberOfEvents eventCount={16} setEventCount={() => {}} />
+    );
   });
 
   test('Number of events input renders', () => {
@@ -21,10 +23,10 @@ describe('<NumberOfEvents /> Component', () => {
     ).toBe('number');
   });
 
-  test('Default number displayed is 32', () => {
+  test('Default number displayed is 16', () => {
     expect(
       NumberOfEventsWrapper.find('.events-displayed-input').prop('value')
-    ).toBe(32);
+    ).toBe(16);
   });
 
   test('User input changes value', () => {

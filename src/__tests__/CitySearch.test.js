@@ -9,7 +9,9 @@ describe('<CitySearch /> component', () => {
   let CitySearchWrapper;
 
   beforeAll(() => {
-    CitySearchWrapper = shallow(<CitySearch locations={locations} />);
+    CitySearchWrapper = shallow(
+      <CitySearch locations={locations} setSelectedLocation={() => {}} />
+    );
   });
 
   beforeEach(() => {
@@ -60,5 +62,20 @@ describe('<CitySearch /> component', () => {
     expect(CitySearchWrapper.find('.search-bar').prop('value')).toBe(
       locations[0]
     );
+  });
+
+  test('selecting the search bar reveals the suggestions list', () => {
+    CitySearchWrapper.find('.search-bar').simulate('focus');
+    expect(CitySearchWrapper.find('.suggestions').prop('style')).not.toEqual({
+      display: 'none',
+    });
+  });
+
+  test('selecting a suggestion removes suggestions from render', () => {
+    CitySearchWrapper.find('.search-bar').simulate('focus');
+    CitySearchWrapper.find('.suggestions li').at(0).simulate('click');
+    expect(CitySearchWrapper.find('.suggestions').prop('style')).toEqual({
+      display: 'none',
+    });
   });
 });
