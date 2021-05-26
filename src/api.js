@@ -1,5 +1,6 @@
 import axios from 'axios';
 import NProgress from 'nprogress';
+import { mockData } from './mock-data';
 
 //Takes an events array and returns an array of location with duplicates excluded
 export const extractLocations = (events) => {
@@ -30,6 +31,10 @@ const removeQuery = () => {
 };
 
 export const getEvents = async () => {
+  if (window.location.href.startsWith('http://localhost')) {
+    return mockData;
+  }
+
   const token = await getAccessToken();
 
   if (token) {
