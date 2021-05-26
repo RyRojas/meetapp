@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-export function NumberOfEvents({ setEventCount }) {
-  let [eventsDisplayed, setEventsDisplayed] = useState(16);
-
+export function NumberOfEvents({ eventCount, setEventCount }) {
   const handleInputChange = (event) => {
     const count = event.target.value;
-    setEventsDisplayed(count);
     setEventCount(count);
   };
 
@@ -13,7 +10,7 @@ export function NumberOfEvents({ setEventCount }) {
     <input
       type="number"
       className="events-displayed-input"
-      value={eventsDisplayed}
+      value={eventCount}
       onChange={(e) => handleInputChange(e)}
     ></input>
   );

@@ -9,7 +9,7 @@ import { NumberOfEvents } from './NumberOfEvents';
 
 import { getEvents, extractLocations } from './api';
 
-function App() {
+export default function App() {
   let [events, setEvents] = useState([]),
     [locations, setLocations] = useState([]),
     [displayEvents, setDisplayEvents] = useState([]),
@@ -40,9 +40,7 @@ function App() {
         setSelectedLocation={setSelectedLocation}
       />
       <EventList events={displayEvents} />
-      <NumberOfEvents setEventCount={setEventCount} />
+      <NumberOfEvents eventCount={eventCount} setEventCount={setEventCount} />
     </div>
   );
 }
-
-export default App;
