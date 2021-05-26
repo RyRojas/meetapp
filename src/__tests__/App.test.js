@@ -8,17 +8,6 @@ import { mockData } from '../mock-data';
 import { extractLocations } from '../api';
 import { act } from 'react-dom/test-utils';
 
-//Mocks our external API call, leaves other local API functions intact
-jest.mock('../api', () => {
-  return {
-    __esModule: true,
-    ...jest.requireActual('../api'),
-    getEvents: () => {
-      return Promise.resolve(mockData);
-    },
-  };
-});
-
 const flushPromises = () => new Promise(setImmediate);
 
 describe('<App /> component', () => {

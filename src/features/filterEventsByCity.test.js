@@ -7,17 +7,6 @@ import { act } from 'react-dom/test-utils';
 
 const feature = loadFeature('./src/features/filterEventsByCity.feature');
 
-//Mocks our external API call, leaves other local API functions intact
-jest.mock('../api', () => {
-  return {
-    __esModule: true,
-    ...jest.requireActual('../api'),
-    getEvents: () => {
-      return Promise.resolve(mockData);
-    },
-  };
-});
-
 const flushPromises = () => new Promise(setImmediate);
 
 defineFeature(feature, (test) => {
