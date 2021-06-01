@@ -16,7 +16,7 @@ ReactDOM.render(
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://cra.link/PWA
-serviceWorkerRegistration.unregister();
+serviceWorkerRegistration.register();
 atatus.config('be64b188588f4e2680a9e92e8e0563c6').install();
 
 // If you want to start measuring performance in your app, pass a function
