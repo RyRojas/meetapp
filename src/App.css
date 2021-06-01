@@ -53,6 +53,10 @@ input[type='number'] {
   position: relative;
 }
 
+.event-list {
+  margin-top: 2rem;
+}
+
 .suggestions {
   width: 250px;
   position: absolute;
