@@ -1,39 +1,76 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { InfoAlert } from './Alert';
 
 export function CitySearch({ locations, setSelectedLocation }) {
   let [query, setQuery] = useState(''),
-    [isVisible, setIsVisible] = useState(false);
+    [isVisible, setIsVisible] = useState(false),
+    [infoText, setInfoText] = useState(''),
+    [suggestions, setSuggestions] = useState([]);
 
-  const filterSuggestions = (suggestions) => {
-    return query
-      ? suggestions.filter((location) =>
-          location.toUpperCase().includes(query.toUpperCase())
+  const handleInputChange = (userInput) => {
+    const results = userInput
+      ? locations.filter((location) =>
+          location.toUpperCase().includes(userInput.toUpperCase())
         )
-      : suggestions;
+      : locations;
+
+    results.length === 0
+      ? setInfoText(
+          'We cannot find the city you are looking for. Please try another city.'
+        )
+      : setInfoText('');
+
+    setSuggestions(results);
+    setQuery(userInput);
   };
 
   const handleItemClick = (suggestion) => {
-    setQuery(suggestion);
+    handleInputChange(suggestion);
     setIsVisible(false);
     setSelectedLocation(suggestion);
   };
 
+  const handleOnBlur = (event) => {
+    if (
+      !event.relatedTarget ||
+      event.relatedTarget.className !== 'suggestions__item'
+    ) {
+      setIsVisible(false);
+    }
+  };
+
+  useEffect(() => {
+    setSuggestions(locations);
+  }, [locations]);
+
   return (
     <div className="city-search">
+      <InfoAlert text={infoText} className="alert" />
       <input
         type="text"
         className="search-bar"
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => handleInputChange(e.target.value)}
         onFocus={() => setIsVisible(true)}
+        onBlur={(e) => handleOnBlur(e)}
       />
       <ul className="suggestions" style={isVisible ? {} : { display: 'none' }}>
-        {filterSuggestions(locations).map((suggestion) => (
-          <li key={suggestion} onClick={() => handleItemClick(suggestion)}>
+        {suggestions.map((suggestion) => (
+          <li
+            className="suggestions__item"
+            key={suggestion}
+            tabIndex="0"
+            onClick={() => handleItemClick(suggestion)}
+          >
             {suggestion}
           </li>
         ))}
-        <li key="all" onClick={() => handleItemClick('')}>
+        <li
+          key="all"
+          className="suggestions__item"
+          tabIndex="0"
+          onClick={() => handleItemClick('')}
+        >
           <b>See all cities</b>
         </li>
       </ul>

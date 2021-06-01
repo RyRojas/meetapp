@@ -26,7 +26,6 @@ p {
 
 input[type='text'],
 input[type='number'] {
-  padding: 8px 6px 8px 10px;
   border-radius: 4px;
   outline: none;
   border: 1px solid #ccc;
@@ -38,6 +37,11 @@ input[type='number'] {
 
 .search-bar {
   width: 250px;
+  margin-top: 2rem;
+}
+
+.alert {
+  position: absolute;
 }
 
 .CitySearch {
@@ -55,7 +59,7 @@ input[type='number'] {
   z-index: 2;
   align-self: center;
   margin: 0;
-  top: 43px;
+  top: 75px;
   font-size: 14px;
   box-shadow: 10px 10px 16px -12px rgba(0, 0, 0, 0.75);
 }
