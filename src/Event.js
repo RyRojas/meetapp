@@ -3,10 +3,25 @@ import React, { useState } from 'react';
 export function Event({ eventData }) {
   let [isExpanded, setExpanded] = useState(false);
 
+  const dateOptions = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    timeZoneName: 'short',
+  };
+
   return (
     <div className="event-card">
       <h2 className="event-card__title">{eventData.summary}</h2>
-      <p className="event-card__date">{eventData.start.dateTime}</p>
+      <p className="event-card__date">
+        {new Date(eventData.start.dateTime).toLocaleDateString(
+          undefined,
+          dateOptions
+        )}
+      </p>
       <p className="event-card__location">{eventData.location}</p>
       {isExpanded && (
         <>
