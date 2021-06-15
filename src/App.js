@@ -6,9 +6,12 @@ import './nprogress.css';
 import { EventList } from './EventList';
 import { CitySearch } from './CitySearch';
 import { NumberOfEvents } from './NumberOfEvents';
-
-import { getEvents, extractLocations } from './api';
+import EventGenre from './EventGenre';
+import EventsByCity from './EventsByCity';
 import { WarningAlert } from './Alert';
+
+//Api imports
+import { getEvents, extractLocations } from './api';
 
 export default function App() {
   let [events, setEvents] = useState([]),
@@ -54,6 +57,11 @@ export default function App() {
         setSelectedLocation={setSelectedLocation}
       />
       <WarningAlert text={warningText} />
+
+      <div className="data-vis-wrapper">
+        <EventGenre events={events} />
+        <EventsByCity events={events} locations={locations} />
+      </div>
       <EventList events={displayEvents} />
       <NumberOfEvents eventCount={eventCount} setEventCount={setEventCount} />
     </div>
