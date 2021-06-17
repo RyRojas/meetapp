@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { InfoAlert } from './Alert';
+import SearchIcon from './assets/search.svg';
 
 export function CitySearch({ locations, setSelectedLocation }) {
   let [query, setQuery] = useState(''),
@@ -45,15 +46,25 @@ export function CitySearch({ locations, setSelectedLocation }) {
 
   return (
     <div className="city-search">
-      <InfoAlert text={infoText} className="alert" />
-      <input
-        type="text"
-        className="search-bar"
-        value={query}
-        onChange={(e) => handleInputChange(e.target.value)}
-        onFocus={() => setIsVisible(true)}
-        onBlur={(e) => handleOnBlur(e)}
-      />
+      <div className="search-bar">
+        <span>
+          <img
+            src={SearchIcon}
+            aria-hidden="true"
+            className="search-bar__icon"
+            alt=""
+          />
+        </span>
+        <input
+          type="text"
+          className="search-bar__input"
+          value={query}
+          onChange={(e) => handleInputChange(e.target.value)}
+          onFocus={() => setIsVisible(true)}
+          onBlur={(e) => handleOnBlur(e)}
+          placeholder="Search by city"
+        />
+      </div>
       <ul className="suggestions" style={isVisible ? {} : { display: 'none' }}>
         {suggestions.map((suggestion) => (
           <li
@@ -65,6 +76,13 @@ export function CitySearch({ locations, setSelectedLocation }) {
             {suggestion}
           </li>
         ))}
+
+        {infoText && (
+          <li>
+            <InfoAlert text={infoText} />
+          </li>
+        )}
+
         <li
           key="all"
           className="suggestions__item"

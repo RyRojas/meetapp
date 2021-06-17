@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import './nprogress.css';
+import Logo from './assets/logo192.png';
 
 //App Components
 import { EventList } from './EventList';
 import { CitySearch } from './CitySearch';
 import { NumberOfEvents } from './NumberOfEvents';
-
-import { getEvents, extractLocations } from './api';
+import EventGenre from './EventGenre';
+import EventsByCity from './EventsByCity';
 import { WarningAlert } from './Alert';
+
+//Api imports
+import { getEvents, extractLocations } from './api';
 
 export default function App() {
   let [events, setEvents] = useState([]),
@@ -49,13 +53,23 @@ export default function App() {
 
   return (
     <div className="app">
-      <CitySearch
-        locations={locations}
-        setSelectedLocation={setSelectedLocation}
-      />
-      <WarningAlert text={warningText} />
-      <EventList events={displayEvents} />
-      <NumberOfEvents eventCount={eventCount} setEventCount={setEventCount} />
+      <header>
+        <img src={Logo} alt="MeetApp logo" className="logo" />
+        <CitySearch
+          locations={locations}
+          setSelectedLocation={setSelectedLocation}
+        />
+        <NumberOfEvents eventCount={eventCount} setEventCount={setEventCount} />
+        <WarningAlert text={warningText} />
+      </header>
+
+      <main>
+        <div className="data-vis-wrapper">
+          <EventGenre events={events} />
+          <EventsByCity events={events} locations={locations} />
+        </div>
+        <EventList events={displayEvents} />
+      </main>
     </div>
   );
 }
