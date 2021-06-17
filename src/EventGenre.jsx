@@ -10,17 +10,17 @@ import {
 
 export default function EventGenre({ events }) {
   const getData = () => {
-    const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'AngularJS'];
+    const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'Angular'];
     const data = genres.map((genre) => {
       const value = events.filter(({ summary }) =>
-        summary.replace(/\.|,/g, '').split(' ').includes(genre)
+        summary.split(/\.|,|-|JS|!| /).includes(genre)
       ).length;
       return { name: genre, value };
     });
     return data;
   };
 
-  const COLORS = ['#0088FE', '#ED1C40', '#FFBB28', '#FF8042', '#25D366'];
+  const colors = ['#006CCB', '#c52f57', '#CC9520', '#CC6634', '#9A74AD'];
 
   const styling = {
     borderRadius: '7.5px',
@@ -41,16 +41,17 @@ export default function EventGenre({ events }) {
             cx="50%"
             cy="50%"
             labelLine={false}
-            label={({ name, percent }) => `${(percent * 100).toFixed(0)}%`}
+            label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
             outerRadius={80}
-            innerRadius={0}
+            innerRadius={70}
+            stroke="none"
             fill="#8884d8"
             dataKey="value"
           >
             {getData().map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
+                fill={colors[index % colors.length]}
               />
             ))}
           </Pie>
