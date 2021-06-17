@@ -202,6 +202,7 @@ button {
   }
 
   .data-vis-wrapper {
+    width: 50%;
     order: 0;
     align-items: flex-end;
     margin-right: 1rem;
@@ -216,6 +217,7 @@ button {
   }
 
   .event-list {
+    width: 50%;
     align-items: flex-start;
     margin: 0 0 0 1rem;
   }
