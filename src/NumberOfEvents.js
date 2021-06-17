@@ -9,21 +9,26 @@ export function NumberOfEvents({ eventCount, setEventCount }) {
 
     const count = parseInt(event.target.value);
 
-    count < 1 || !Number.isInteger(count)
-      ? setErrorText('Please enter a valid number.')
-      : setEventCount(count);
+    if (count) {
+      count < 1 || !Number.isInteger(count)
+        ? setErrorText('Please enter a valid number.')
+        : setEventCount(count);
+    } else {
+      setEventCount('');
+    }
   };
 
   return (
-    <>
+    <div className="events-displayed">
+      <p>Number of Events</p>
       <input
         type="number"
-        className="events-displayed-input"
+        className="events-displayed__input"
         value={eventCount}
-        // min="1"
+        min="1"
         onChange={(e) => handleInputChange(e)}
       ></input>
       <ErrorAlert text={errorText} />
-    </>
+    </div>
   );
 }

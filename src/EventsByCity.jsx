@@ -21,11 +21,18 @@ export default function EventsByCity({ locations, events }) {
     return data;
   };
 
+  const styling = {
+    borderRadius: '7.5px',
+    outline: 'none',
+    border: '1px solid #30333a',
+    backgroundColor: '#1b1d24',
+  };
+
   return (
-    <>
-      <h4>Cities</h4>
-      <ResponsiveContainer height={400} className="data-vis city-data">
-        <ScatterChart margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
+    <div className="data-vis city-data">
+      <h4 className="data-title">Cities</h4>
+      <ResponsiveContainer height={400}>
+        <ScatterChart margin={{ top: 16, left: -40 }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             dataKey="city"
@@ -43,10 +50,12 @@ export default function EventsByCity({ locations, events }) {
           <Tooltip
             cursor={{ strokeDasharray: '3 3' }}
             labelFormatter={() => ''}
+            contentStyle={styling}
+            itemStyle={{ color: '#828d99' }}
           />
           <Scatter data={getData()} fill="#8884d8" />
         </ScatterChart>
       </ResponsiveContainer>
-    </>
+    </div>
   );
 }

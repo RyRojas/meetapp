@@ -23,20 +23,22 @@ export function Event({ eventData }) {
         )}
       </p>
       <p className="event-card__location">{eventData.location}</p>
-      {isExpanded && (
-        <>
-          <p className="event-card__description">{eventData.description}</p>
-          <a href={eventData.htmlLink} className="event-card__calendar-link">
-            <button>See Event in Calendar</button>
-          </a>
-        </>
-      )}
-      <button
-        className="event-card__details-toggle"
-        onClick={() => setExpanded(!isExpanded)}
-      >
-        {isExpanded ? 'Hide Details' : 'Show Details'}
-      </button>
+      <div className="event-card__buttons">
+        {isExpanded && (
+          <>
+            <p className="event-card__description">{eventData.description}</p>
+            <a href={eventData.htmlLink} className="event-card__calendar-link">
+              <button>See Event in Calendar</button>
+            </a>
+          </>
+        )}
+        <button
+          className="event-card__details-toggle"
+          onClick={() => setExpanded(!isExpanded)}
+        >
+          {isExpanded ? 'Hide Details' : 'Show Details'}
+        </button>
+      </div>
     </div>
   );
 }

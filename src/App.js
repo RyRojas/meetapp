@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import './nprogress.css';
+import Logo from './assets/logo192.png';
 
 //App Components
 import { EventList } from './EventList';
@@ -52,18 +53,23 @@ export default function App() {
 
   return (
     <div className="app">
-      <CitySearch
-        locations={locations}
-        setSelectedLocation={setSelectedLocation}
-      />
-      <WarningAlert text={warningText} />
+      <header>
+        <img src={Logo} alt="MeetApp logo" className="logo" />
+        <CitySearch
+          locations={locations}
+          setSelectedLocation={setSelectedLocation}
+        />
+        <NumberOfEvents eventCount={eventCount} setEventCount={setEventCount} />
+        <WarningAlert text={warningText} />
+      </header>
 
-      <div className="data-vis-wrapper">
-        <EventGenre events={events} />
-        <EventsByCity events={events} locations={locations} />
-      </div>
-      <EventList events={displayEvents} />
-      <NumberOfEvents eventCount={eventCount} setEventCount={setEventCount} />
+      <main>
+        <div className="data-vis-wrapper">
+          <EventGenre events={events} />
+          <EventsByCity events={events} locations={locations} />
+        </div>
+        <EventList events={displayEvents} />
+      </main>
     </div>
   );
 }
