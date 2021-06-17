@@ -1,10 +1,236 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:500);
-.App {
-  text-align: center;
-  padding: 2% 5%;
+* {
+  box-sizing: border-box;
 }
 
-.App * {
+/* General Styling */
+.app,
+header,
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+body {
+  background-color: #1b1d24;
+  color: #eee;
+  font-size: 0.875rem;
+}
+
+img {
+  margin: 8px 0;
+}
+
+h2 {
+  margin: 0.625rem 0;
+}
+
+p {
+  margin: 0.5rem 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+.events-displayed__input,
+.search-bar {
+  height: 36px;
+  border-radius: 0.5rem;
+  outline: none;
+  border: 1px solid #30333a;
+  background-color: #1b1d24;
+  color: #828d99;
+}
+
+button {
+  height: 1.75rem;
+  border-radius: 0.25rem;
+  margin: 0.5rem 0 0 0;
+  outline: none;
+  cursor: pointer;
+  background-color: #c52f57;
+  color: #eee;
+  border: 1px inset #30333a;
+}
+
+/* City Search Component */
+.city-search {
+  margin: auto;
+}
+
+.search-bar {
+  width: 250px;
+  display: flex;
+  align-items: center;
+}
+
+.search-bar__icon {
+  padding: 0 4px;
+}
+
+.search-bar__input,
+.search-bar__input:focus {
+  color: #828d99;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+.suggestions {
+  width: 235px;
+  position: absolute;
+  z-index: 2;
+  justify-self: center;
+  margin: 0 7.5px;
+  top: 124px;
+  box-shadow: 10px 10px 16px -12px rgba(0, 0, 0, 0.75);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.suggestions > li {
+  text-align: left;
+  padding: 0.5rem;
+  background-color: #30333a;
+  cursor: default;
+  list-style: none;
+}
+
+.suggestions > li:last-child {
+  border-bottom-left-radius: 0.625rem;
+  border-bottom-right-radius: 0.625rem;
+}
+
+.suggestions > li:hover {
+  background-color: #c52f57;
+  color: black;
+}
+
+/* Event List */
+.event-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 90%;
+}
+
+/* Event Card */
+.event-card {
+  max-width: 65ch;
+  padding: 0.5rem 0.5rem 1.125rem 0.5rem;
+  position: relative;
+  background-color: #1e2127;
+  margin: 0.5rem auto;
+  border-radius: 0.625rem;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+  transition: all ease-in-out 0.2s;
+}
+
+.event-card:hover {
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+.event-card__date,
+.event-card__location {
+  color: #828d99;
+}
+
+.event-card__details-toggle {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 1.125rem;
+}
+
+/* Number of Events */
+.events-displayed {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 250px;
+  flex-wrap: wrap;
+  text-align: center;
+  margin-top: 1rem;
+  color: #828d99;
+}
+
+.events-displayed__input {
+  width: 50px;
+  margin-left: 1rem;
+  text-align: center;
+}
+
+.error-alert {
+  width: 100%;
+}
+
+/* Data Vis */
+.data-vis-wrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  order: 1;
+  width: 100%;
+}
+
+.city-data .recharts-surface {
+  overflow: visible;
+  padding-bottom: 1.25rem;
+}
+
+.genre-data,
+.city-data {
+  margin: 0.5rem 5%;
+  border-radius: 0.625rem;
+  padding: 1.125rem 0;
+  background-color: #1e2127;
+}
+
+.data-title {
+  margin: 0;
+}
+
+/* Media Queries */
+@media all and (min-width: 65em) {
+  main {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .data-vis-wrapper {
+    order: 0;
+    align-items: flex-end;
+    margin-right: 1rem;
+  }
+
+  /* Responsive Container refused to work inside my flexbox */
+  .genre-data,
+  .city-data {
+    width: 100%;
+    max-width: 65ch;
+    margin: 0.5rem 0;
+  }
+
+  .event-list {
+    align-items: flex-start;
+    margin: 0 0 0 1rem;
+  }
+
+  .event-list__item {
+    width: 100%;
+  }
+
+  .event-card {
+    margin: 0.5rem 0;
+  }
+}
+/*
+
+.app * {
   box-sizing: border-box;
 }
 
@@ -216,4 +442,4 @@ input[type='number'] {
     min-width: auto;
     margin: 0 auto;
   }
-}
+} */
